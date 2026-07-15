@@ -54,7 +54,7 @@ object IdBanConfig {
 
     fun load() {
         if (!configFile.exists()) {
-            save()   // write defaults
+            save()
             IdBan.LOGGER.info("Created default config at ${configFile.absolutePath}")
             return
         }
