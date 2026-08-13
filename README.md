@@ -1,8 +1,8 @@
 > [!WARNING]
 > This repository was partially modified by an AI (Buffy/Codebuff). Use at your own risk.
-> This project is for an open server I manage. I understand the mod architecture and functionality, but I am not learning Java syntax for this project; the implementation is AI-assisted.
+> This project is for an open server I manage. I understand the mod architecture and functionality, but I am not learning Java syntax for this project; the implementation (on my part) is fully done by AI. Java is unlike GDScript not my Focus.
 
-**IdBan**
+**Id Ban**
 
 IdBan is a server-side moderation mod for Minecraft that detects and blocks specific client-side mods by identifying their translation keys.
 
