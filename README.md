@@ -1,6 +1,6 @@
 > [!WARNING]
-> Dieses Repository wurde teilweise durch eine KI (Buffy/Codebuff) geändert. Die Erkennung ist nicht garantiert; teste sie auf deinem Server, bevor du sie produktiv verwendest.
-> Der Build läuft über GitHub Actions mit Java 25 — Java/Gradle müssen dafür nicht lokal installiert werden.
+> Dieses Repository wurde teilweise durch eine KI (Buffy/Codebuff) geändert. Use at your own risk.
+> This project is for an open server I manage. I understand the mod architecture and functionality, but I am not learning Java syntax for this project; the implementation is AI-assisted.
 
 **IdBan**
 
@@ -21,6 +21,14 @@ It allows server owners to enforce mod restrictions without requiring client ins
 - Works with any mod that has custom translations
 
 - Server-side only (no client install required)
+
+**Important Limitations**
+
+- IdBan currently does not inspect or trust client-brand strings.
+- Client brands, mod channels, translation responses, and forced-mod proofs can be spoofed by a modified client.
+- Requiring a normal mod such as Sodium is not cryptographic proof that channels or probes cannot be spoofed.
+- With `modWhitelist` empty, vanilla players are allowed; this is intentional to avoid false positives.
+- IdBan is lightweight identity/mod detection, not a full 24/7 gameplay anticheat.
 
 
 **How It Works**
