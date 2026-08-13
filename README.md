@@ -1,3 +1,7 @@
+> [!WARNING]
+> Dieses Repository wurde teilweise durch eine KI (Buffy/Codebuff) geändert. Die Erkennung ist nicht garantiert; teste sie auf deinem Server, bevor du sie produktiv verwendest.
+> Der Build läuft über GitHub Actions mit Java 25 — Java/Gradle müssen dafür nicht lokal installiert werden.
+
 **IdBan**
 
 IdBan is a server-side moderation mod for Minecraft that detects and blocks specific client-side mods by identifying their translation keys.
@@ -63,6 +67,8 @@ Example configuration:
 ```json
 {
   "bannedModIds": [
+    "liquidbounce",
+    "aoba",
     "freecam"
   ],
   "bannedKeywords": [],
@@ -77,9 +83,10 @@ Example configuration:
     "wurst-client": "key.wurst.zoom",
     "meteor-client": "key.meteor-client.open-gui",
     "xaeros-minimap": "xaeros_minimap.gui.title",
+    "liquidbounce": "liquidbounce.command.autotranslate.description",
     "freecam": "msg.freecam.enable"
   },
-  "kickOnUndetectable": false,
+  "kickOnUndetectable": true,
   "kickMessage": "§cYou are running a banned modification: §e{reason}"
 }
 ```
@@ -90,6 +97,10 @@ translationProbes
 Used for detection. Each entry maps:
 
 mod id → translation key to probe
+
+The LiquidBounce probe above is verified against `CCBlueX/LiquidBounce` branch `nextgen`, its `fabric.mod.json`, and `src/main/resources/resources/liquidbounce/lang/en_us.json`. The Aoba mod ID is verified from `Cocolots/Aoba-Client` `master` and included in the default banned ID list, but that branch contains no translation assets or translation key, so no Aoba translation probe is claimed here.
+
+`kickOnUndetectable` defaults to `true`, but only kicks after all configured probes resolve negatively when `modWhitelist` is explicitly non-empty. This prevents ordinary clients from being kicked by a negative probe in the default configuration.
 
 If the client resolves the translation, the mod
 

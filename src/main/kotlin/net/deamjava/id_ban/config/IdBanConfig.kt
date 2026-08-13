@@ -8,7 +8,10 @@ import java.io.File
 
 data class IdBanConfiguration(
 
-    val bannedModIds: MutableList<String> = mutableListOf(),
+    val bannedModIds: MutableList<String> = mutableListOf(
+        "liquidbounce",
+        "aoba"
+    ),
 
     val bannedKeywords: MutableList<String> = mutableListOf(),
 
@@ -22,7 +25,10 @@ data class IdBanConfiguration(
         "iris"         to "options.iris.shaderPackSelection",
         "wurst-client" to "key.wurst.zoom",
         "meteor-client" to "key.meteor-client.open-gui",
-        "xaeros-minimap" to "xaeros_minimap.gui.title"
+        "xaeros-minimap" to "xaeros_minimap.gui.title",
+        // Verified in CCBlueX/LiquidBounce (nextgen), src/main/resources/resources/liquidbounce/lang/en_us.json
+        "liquidbounce" to "liquidbounce.command.autotranslate.description"
+        // Aoba has mod ID "aoba", but its current upstream has no translation assets/key to probe.
     ),
 
     val clientCommandPrefixes: MutableMap<String, MutableList<String>> = mutableMapOf(
@@ -32,7 +38,9 @@ data class IdBanConfiguration(
         "badlion-client" to mutableListOf("/blc")
     ),
 
-    val kickOnUndetectable: Boolean = false,
+    // Only enforces an undetectable client when modWhitelist is explicitly enabled.
+    // This avoids kicking normal clients just because a probe did not resolve.
+    val kickOnUndetectable: Boolean = true,
 
     val kickMessage: String = "§cYou are running a banned modification: §e{reason}",
 

@@ -41,6 +41,7 @@ object AnvilProbeManager {
     val activeProbe: ConcurrentHashMap<UUID, Pair<String, String>> = ConcurrentHashMap()
 
     private val checkSessions: ConcurrentHashMap<UUID, CheckSession> = ConcurrentHashMap()
+    private val automaticDetected: ConcurrentHashMap<UUID, MutableSet<String>> = ConcurrentHashMap()
 
     data class CheckSession(
         val source: CommandSourceStack,
@@ -59,6 +60,7 @@ object AnvilProbeManager {
             queue.addLast(modId to key)
         }
         pendingProbes[player.uuid] = queue
+        automaticDetected[player.uuid] = mutableSetOf()
 
         sendNextProbe(player)
     }
@@ -101,6 +103,17 @@ object AnvilProbeManager {
             // If this was a check session, all probes are done — print the report
             checkSessions.remove(player.uuid)?.let { session ->
                 reportCheckResults(player, session)
+            } ?: run {
+                val detected = automaticDetected.remove(player.uuid).orEmpty()
+                val cfg = IdBanConfig.config
+                if (cfg.kickOnUndetectable &&
+                    cfg.modWhitelist.isNotEmpty() &&
+                    detected.isEmpty() &&
+                    !ModDetectionManager.isPlayerWhitelisted(player) &&
+                    !player.hasDisconnected()
+                ) {
+                    IdBan.kickPlayer(player, "Undetectable client: no configured translation probe resolved")
+                }
             }
             return
         }
@@ -158,6 +171,7 @@ object AnvilProbeManager {
             if (modDetected) session.detected.add(modId) else session.notDetected.add(modId)
         } else {
             if (modDetected) {
+                automaticDetected[player.uuid]?.add(modId)
                 ModDetectionManager.onProbeDetected(player, modId)
             }
         }
@@ -194,5 +208,6 @@ object AnvilProbeManager {
         pendingProbes.remove(uuid)
         activeProbe.remove(uuid)
         checkSessions.remove(uuid)
+        automaticDetected.remove(uuid)
     }
 }
