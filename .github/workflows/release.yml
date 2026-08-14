@@ -3,8 +3,7 @@ name: release
 on:
   push:
     tags:
-      - 'v*+26.2'
-      - 'v*-26.2'
+      - 'v*26.2'
   workflow_dispatch:
 
 permissions:
