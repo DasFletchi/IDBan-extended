@@ -1,5 +1,5 @@
 > [!WARNING]
-> This repository was partially modified by an AI (Buffy/Codebuff). Use at your own risk.
+> This repository was partially modified by an AI (Buffy/Codebuff and Codex). Use at your own risk.
 > This project is for an open server I manage. I understand the mod architecture and functionality, but I am not learning Java syntax for this project; the implementation (on my part) is fully done by AI. Java is unlike GDScript not my Focus.
 
 **Id Ban**
@@ -79,15 +79,6 @@ Example configuration:
     "aoba",
     "sexmod"
   ],
-  "bannedKeywords": [
-    "liquidbounce",
-    "aoba",
-    "wurst",
-    "meteor",
-    "doomsday",
-    "sexmod",
-    "darkclient"
-  ],
   "modWhitelist": [],
   "playerWhitelist": [
     "DEAMJAVA"
@@ -133,7 +124,7 @@ The LiquidBounce probe above is verified against `CCBlueX/LiquidBounce` branch `
 
 **26.2 JAR Releases**
 
-Minecraft `26.2` JARs are produced by the `release` GitHub Actions workflow. Push a tag such as `v1.4+26.2`, or run the workflow manually and enter the release tag. The workflow runs `./gradlew clean remapJar`, stages the remapped `build/libs/*+26.2.jar`, and creates a GitHub Release with that JAR attached. A release appears only after the workflow has run successfully on GitHub.
+Tagged builds for Minecraft `26.2` are produced by the `release` GitHub Actions workflow. Push a tag such as `v1.4+26.2` or run the workflow manually; it runs `./gradlew clean remapJar` and uploads the remapped `build/libs/*+26.2.jar` file to the GitHub Release.
 
 If the client resolves the translation, the mod
 

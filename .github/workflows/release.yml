@@ -6,16 +6,6 @@ on:
       - 'v*+26.2'
       - 'v*-26.2'
   workflow_dispatch:
-    inputs:
-      tag_name:
-        description: 'Release tag to create, for example v1.4+26.2'
-        required: true
-        default: 'v1.4+26.2'
-      prerelease:
-        description: 'Mark this release as a prerelease'
-        required: true
-        type: boolean
-        default: false
 
 permissions:
   contents: write
@@ -41,13 +31,8 @@ jobs:
         run: |
           mkdir -p release
           cp build/libs/*+26.2.jar release/
-          ls -lah release/
-      - name: create github release with jar
+      - name: create github release
         uses: softprops/action-gh-release@v2
         with:
-          tag_name: ${{ github.ref_type == 'tag' && github.ref_name || inputs.tag_name }}
-          target_commitish: ${{ github.sha }}
-          prerelease: ${{ github.event_name == 'workflow_dispatch' && inputs.prerelease || false }}
           files: release/*.jar
-          fail_on_unmatched_files: true
           generate_release_notes: true
