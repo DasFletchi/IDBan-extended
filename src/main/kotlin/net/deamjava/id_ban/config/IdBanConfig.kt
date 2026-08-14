@@ -17,7 +17,15 @@ data class IdBanConfiguration(
         // no Fabric/Forge mod ID is claimed in its repository.
     ),
 
-    val bannedKeywords: MutableList<String> = mutableListOf(),
+    val bannedKeywords: MutableList<String> = mutableListOf(
+        "liquidbounce",
+        "aoba",
+        "wurst",
+        "meteor",
+        "doomsday",
+        "sexmod",
+        "darkclient"
+    ),
 
     val modWhitelist: MutableList<String> = mutableListOf(),
 
@@ -40,6 +48,8 @@ data class IdBanConfiguration(
     val clientCommandPrefixes: MutableMap<String, MutableList<String>> = mutableMapOf(
         "wurst-client"  to mutableListOf("."),
         "meteor-client" to mutableListOf("."),
+        "liquidbounce"  to mutableListOf(".", ","),
+        "aoba"          to mutableListOf(".", ";"),
         "lunar-client"  to mutableListOf("/lc"),
         "badlion-client" to mutableListOf("/blc")
     ),

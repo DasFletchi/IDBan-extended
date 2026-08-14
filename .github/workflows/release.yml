@@ -1,0 +1,38 @@
+name: release
+
+on:
+  push:
+    tags:
+      - 'v*+26.2'
+      - 'v*-26.2'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-24.04
+    steps:
+      - name: checkout repository
+        uses: actions/checkout@v4
+      - name: validate gradle wrapper
+        uses: gradle/actions/wrapper-validation@v4
+      - name: setup jdk
+        uses: actions/setup-java@v4
+        with:
+          java-version: '25'
+          distribution: 'microsoft'
+      - name: make gradle wrapper executable
+        run: chmod +x ./gradlew
+      - name: build remapped 26.2 jar
+        run: ./gradlew clean remapJar
+      - name: stage release jar
+        run: |
+          mkdir -p release
+          cp build/libs/*+26.2.jar release/
+      - name: create github release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: release/*.jar
+          generate_release_notes: true

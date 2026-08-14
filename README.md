@@ -79,7 +79,6 @@ Example configuration:
     "aoba",
     "sexmod"
   ],
-  "bannedKeywords": [],
   "modWhitelist": [],
   "playerWhitelist": [
     "DEAMJAVA"
@@ -94,6 +93,14 @@ Example configuration:
     "liquidbounce": "liquidbounce.command.autotranslate.description"
   },
   "kickOnUndetectable": true,
+  "clientCommandPrefixes": {
+    "wurst-client": ["."],
+    "meteor-client": ["."],
+    "liquidbounce": [".", ","],
+    "aoba": [".", ";"],
+    "lunar-client": ["/lc"],
+    "badlion-client": ["/blc"]
+  },
   "kickMessage": "§cYou are running a banned modification: §e{reason}"
 }
 ```
@@ -108,6 +115,16 @@ mod id → translation key to probe
 The LiquidBounce probe above is verified against `CCBlueX/LiquidBounce` branch `nextgen`, its `fabric.mod.json`, and `src/main/resources/resources/liquidbounce/lang/en_us.json`. The Aoba mod ID is verified from `Cocolots/Aoba-Client` `master` and included in the default banned ID list, but that branch contains no translation assets or translation key, so no Aoba translation probe is claimed here. `patlozer/DoomsDay` is open source and its repository `mcmod.info` declares the Forge mod ID `sexmod`, so that ID is included in the default banned ID list; no translation probe is claimed because no language assets were found in that repository. `TheDarkSword/DarkClient` is open source, but its README describes a Rust/JNI injection client rather than a loader mod, so no mod ID or translation probe is claimed for it.
 
 `kickOnUndetectable` defaults to `true`, but only kicks after all configured probes resolve negatively when `modWhitelist` is explicitly non-empty. This prevents ordinary clients from being kicked by a negative probe in the default configuration.
+
+**Keyword Detection**
+
+`bannedKeywords` is a substring index over registered plugin-channel namespaces and full channel IDs. It is intentionally less exact than `bannedModIds`, so the default list now includes conservative identifiers that are strongly tied to the configured hack-client targets: `liquidbounce`, `aoba`, `wurst`, `meteor`, `doomsday`, `sexmod`, and `darkclient`. Keep this list focused: very generic words can create false positives because keyword detection matches substrings.
+
+`clientCommandPrefixes` is a second, active signal. It watches tab-complete packets for known client command prefixes, then reports the configured client ID to the same ban/probe pipeline. The defaults include Wurst/Meteor `.` commands, LiquidBounce `.` and `,`, and Aoba `.` and `;`.
+
+**26.2 JAR Releases**
+
+Tagged builds for Minecraft `26.2` are produced by the `release` GitHub Actions workflow. Push a tag such as `v1.4+26.2` or run the workflow manually; it runs `./gradlew clean remapJar` and uploads the remapped `build/libs/*+26.2.jar` file to the GitHub Release.
 
 If the client resolves the translation, the mod
 
