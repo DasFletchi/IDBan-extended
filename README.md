@@ -1,5 +1,5 @@
 > [!WARNING]
-> This repository was partially modified by an AI (Buffy/Codebuff and Codex). Use at your own risk.
+> This repository was partially modified by an AI (Freebuff, Antigravity and Codex). Use at your own risk.
 > This project is for an open server I manage. I understand the mod architecture and functionality, but I am not learning Java syntax for this project; the implementation (on my part) is fully done by AI. Java is unlike GDScript not my Focus.
 
 **Id Ban**
