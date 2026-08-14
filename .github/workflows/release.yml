@@ -25,7 +25,7 @@ jobs:
       - name: make gradle wrapper executable
         run: chmod +x ./gradlew
       - name: build remapped 26.2 jar
-        run: ./gradlew clean remapJar
+        run: ./gradlew clean build
       - name: stage release jar
         run: |
           mkdir -p release
