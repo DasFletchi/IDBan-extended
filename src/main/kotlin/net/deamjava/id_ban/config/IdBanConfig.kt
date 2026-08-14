@@ -10,7 +10,11 @@ data class IdBanConfiguration(
 
     val bannedModIds: MutableList<String> = mutableListOf(
         "liquidbounce",
-        "aoba"
+        "aoba",
+        // patlozer/DoomsDay ships mcmod.info with Forge modid "sexmod".
+        "sexmod"
+        // TheDarkSword/DarkClient is an injected Rust/JNI client, not a loader mod;
+        // no Fabric/Forge mod ID is claimed in its repository.
     ),
 
     val bannedKeywords: MutableList<String> = mutableListOf(),
@@ -29,6 +33,8 @@ data class IdBanConfiguration(
         // Verified in CCBlueX/LiquidBounce (nextgen), src/main/resources/resources/liquidbounce/lang/en_us.json
         "liquidbounce" to "liquidbounce.command.autotranslate.description"
         // Aoba has mod ID "aoba", but its current upstream has no translation assets/key to probe.
+        // TheDarkSword/DarkClient has no translation assets because it is injected, not loaded as a mod.
+        // patlozer/DoomsDay exposes mcmod.info only; no lang assets/key are present to probe.
     ),
 
     val clientCommandPrefixes: MutableMap<String, MutableList<String>> = mutableMapOf(
